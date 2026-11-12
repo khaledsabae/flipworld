@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FLIPWORLD</title>
+<link rel="icon" href="data:,">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <div id="stage"></div>
+
+  <div id="hud" class="hud hidden">
+    <div class="pill"><span class="lv" id="hudLevel">1</span><span class="hud-gems" id="hudGems"><i></i><i></i><i></i></span></div>
+    <button class="fab bl" id="btnRestart" aria-label="Retry">
+      <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="assist">
+      <button class="fab mini hidden" id="btnHint" aria-label="Hint"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.200 1 2V16h5.200v-.200c0-.800.400-1.500 1-2A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="fab mini hidden" id="btnSkip" aria-label="Skip level"><svg viewBox="0 0 24 24"><path d="M5 5.500v13l9-6.500zM17.500 5v14" fill="currentColor" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"/></svg><i class="adtag hidden" id="skipAd">AD</i></button>
+    </div>
+    <button class="fab br" id="btnMap" aria-label="Levels">
+      <svg viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></g></svg>
+    </button>
+  </div>
+
+  <div id="tut" class="tut hidden">
+    <div class="tut-hand" id="tutHand"><svg viewBox="0 0 48 48"><path d="M18 22V9a3.5 3.5 0 0 1 7 0v11l1-.3a3.4 3.4 0 0 1 4.4 2l.8-.2a3.3 3.3 0 0 1 4.1 2.2l.5-.1a3.2 3.2 0 0 1 3.7 3.2V34a11 11 0 0 1-11 11h-3.6a11 11 0 0 1-8.6-4.1l-6.6-8.3a3.3 3.3 0 0 1 4.8-4.5L18 31z" fill="#fff" stroke="#1d2b53" stroke-width="2.4" stroke-linejoin="round"/></svg></div>
+    <div class="tut-text" id="tutText"></div>
+  </div>
+
+  <div id="pauseBadge" class="pause hidden"><span data-i18n="paused">Paused</span></div>
+
+  <section id="scrLoading" class="screen solid">
+    <div class="logo">FLIP<span>WORLD</span></div>
+    <div class="bar"><i></i></div>
+    <p class="muted" data-i18n="loading">Loading…</p>
+  </section>
+
+  <section id="scrHome" class="screen hidden">
+    <div class="logo">FLIP<span>WORLD</span></div>
+    <div class="home">
+      <button id="btnPlay" class="btn primary big">
+        <svg viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12.4-7.5a1 1 0 0 0 0-1.8L8.5 3.6A1 1 0 0 0 7 4.5z" fill="currentColor"/></svg>
+        <span id="playLabel">Level 1</span>
+      </button>
+      <div class="row">
+        <button id="btnLevels" class="btn"><svg viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></g></svg><span data-i18n="levels">Levels</span></button>
+        <button id="btnShop" class="btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500" fill="none" stroke="currentColor" stroke-width="2.400"/><path d="M12 3.500v17M4 9.500c5 2.600 11 2.600 16 0M4 14.500c5-2.600 11-2.600 16 0" fill="none" stroke="currentColor" stroke-width="1.800"/></svg><span data-i18n="skins">Balls</span></button>
+        <button id="btnSettings" class="btn"><svg viewBox="0 0 24 24"><path d="M4 7h9M19 7h1M4 17h1M11 17h9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><circle cx="16" cy="7" r="2.8" fill="currentColor"/><circle cx="8" cy="17" r="2.8" fill="currentColor"/></svg><span data-i18n="settings">Settings</span></button>
+      </div>
+      <div class="home-stats">
+        <span class="chip star"><svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 6 6.5.9-4.700 4.600 1.100 6.500L12 17.500l-5.800 3.100 1.100-6.500L2.600 9.500l6.500-.9z" fill="currentColor"/></svg><b id="homeStars">0</b></span>
+        <span class="chip gem"><svg viewBox="0 0 24 24"><path d="M12 2l7 9-7 11-7-11z" fill="currentColor"/></svg><b id="homeGems">0</b></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="scrWin" class="screen hidden">
+    <div class="card">
+      <h2 id="winTitle">Nice!</h2>
+      <div class="stars" id="winStars"><i></i><i></i><i></i></div>
+      <div class="stats">
+        <div><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 8.5V13l3 2M9.500 2.500h5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><b id="winTime">0.0</b><small id="winPar"></small></div>
+        <div class="gemstat"><svg viewBox="0 0 24 24"><path d="M12 2l7 9-7 11-7-11z" fill="currentColor"/></svg><b id="winGems">0/3</b></div>
+      </div>
+      <button id="btnDouble" class="btn reward hidden"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M10 9.200v5.600l5-2.800z" fill="currentColor"/></svg><span data-i18n="doubleGems">Double gems</span></button>
+      <button id="btnNext" class="btn primary big"><span data-i18n="next">Next</span><svg viewBox="0 0 24 24"><path d="M5 12h13M12.500 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.800" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="row">
+        <button id="btnRetry" class="btn"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.600-5.900M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="retry">Retry</span></button>
+        <button id="btnWinMap" class="btn"><svg viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="3" width="7.500" height="7.500" rx="2"/><rect x="13.500" y="3" width="7.500" height="7.500" rx="2"/><rect x="3" y="13.500" width="7.500" height="7.500" rx="2"/><rect x="13.500" y="13.500" width="7.500" height="7.500" rx="2"/></g></svg><span data-i18n="levels">Levels</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="scrMap" class="screen hidden">
+    <div class="card wide">
+      <header>
+        <h2 data-i18n="levels">Levels</h2>
+        <span class="chip star"><svg viewBox="0 0 24 24"><path d="M12 2.600l2.900 6 6.500.900-4.700 4.600 1.100 6.500L12 17.500l-5.800 3.100 1.100-6.500L2.600 9.500l6.500-.9z" fill="currentColor"/></svg><b id="mapStars">0</b></span>
+        <button class="x" id="btnMapHome" aria-label="Home"><svg viewBox="0 0 24 24"><path d="M4 11.500L12 4.500l8 7M6.500 10v9.500h11V10" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="x" id="btnMapClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>
+      </header>
+      <div id="mapGrid" class="grid"></div>
+    </div>
+  </section>
+
+  <section id="scrShop" class="screen hidden">
+    <div class="card wide">
+      <header>
+        <h2 data-i18n="skins">Balls</h2>
+        <span class="chip gem"><svg viewBox="0 0 24 24"><path d="M12 2l7 9-7 11-7-11z" fill="currentColor"/></svg><b id="shopGems">0</b></span>
+        <button class="x" id="btnShopClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>
+      </header>
+      <div id="shopGrid" class="grid shop"></div>
+    </div>
+  </section>
+
+  <section id="scrSettings" class="screen hidden">
+    <div class="card">
+      <header>
+        <h2 data-i18n="settings">Settings</h2>
+        <button class="x" id="btnSetClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>
+      </header>
+      <label class="opt"><span data-i18n="music">Music</span><input type="checkbox" id="optMusic" class="sw"></label>
+      <label class="opt"><span data-i18n="sfx">Sound effects</span><input type="checkbox" id="optSfx" class="sw"></label>
+      <div class="opt"><span data-i18n="control">Controls</span>
+        <div class="seg" id="optCtl"><button data-v="swipe" data-i18n="ctlSwipe">Swipe</button><button data-v="grab" data-i18n="ctlGrab">Grab</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scrEnd" class="screen hidden">
+    <div class="card">
+      <div class="trophy"><svg viewBox="0 0 24 24"><path d="M7 3h10v4a5 5 0 0 1-10 0zM7 4.500H4V6a3.500 3.500 0 0 0 3.500 3.500M17 4.500h3V6a3.500 3.500 0 0 1-3.500 3.500M12 12v4M8 20h8M9.500 16h5v4h-5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h2 data-i18n="endTitle">World complete!</h2>
+      <p class="muted" data-i18n="endBody">You finished every level. More worlds are on the way — go back for 3 stars!</p>
+      <button id="btnEndMap" class="btn primary big"><span data-i18n="levels">Levels</span></button>
+    </div>
+  </section>
+
+  <section id="scrError" class="screen solid hidden"><div class="logo">FLIP<span>WORLD</span></div><p class="muted" data-i18n="noWebgl">This device can't show 3D graphics.</p></section>
+
+  <div id="toast" class="toast"></div>
+</div>
+<script src="three.min.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
