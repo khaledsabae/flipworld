@@ -462,6 +462,55 @@ svg {
   font-weight: 900;
   border-radius: 20px;
 }
+.playrow {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  align-items: stretch;
+}
+.playrow .btn.big {
+  flex: 1;
+  width: auto;
+}
+.btn.daily {
+  position: relative;
+  flex: none;
+  min-width: 64px;
+  min-height: 48px;
+  border-radius: 20px;
+  background: #fff4cc;
+  color: #7a4a00;
+  box-shadow: 0 5px 0 #e8c75a;
+}
+.btn.daily svg {
+  width: 30px;
+  height: 30px;
+}
+.btn.daily b {
+  position: absolute;
+  top: -7px;
+  inset-inline-end: -7px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 12px;
+  background: #e11d48;
+  color: #fff;
+  font-size: 13px;
+  line-height: 24px;
+  text-align: center;
+}
+.btn.daily b:empty {
+  display: none;
+}
+.btn.daily.done {
+  background: #e9fbf0;
+  color: #0f7a36;
+  box-shadow: 0 5px 0 #bfe9cf;
+}
+.btn.daily.done b {
+  background: #16a34a;
+}
 .btn.reward {
   width: 100%;
   background: #fff4cc;
@@ -598,6 +647,29 @@ svg {
   font-weight: 900;
   font-size: 19px;
   box-shadow: 0 3px 0 #d5dcee;
+}
+.wsep {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 4px 2px;
+  font-weight: 800;
+  color: #51607f;
+}
+.wsep i {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  flex: none;
+}
+.wsep b {
+  font-size: 1.05em;
+}
+.wsep span {
+  margin-inline-start: auto;
+  font-size: .82em;
+  font-variant-numeric: tabular-nums;
 }
 .lvl.done {
   background: #e9fbf0;

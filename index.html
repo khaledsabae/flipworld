@@ -42,10 +42,16 @@
   <section id="scrHome" class="screen hidden">
     <div class="logo">FLIP<span>WORLD</span></div>
     <div class="home">
-      <button id="btnPlay" class="btn primary big">
-        <svg viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12.4-7.5a1 1 0 0 0 0-1.8L8.5 3.6A1 1 0 0 0 7 4.5z" fill="currentColor"/></svg>
-        <span id="playLabel">Level 1</span>
-      </button>
+      <div class="playrow">
+        <button id="btnPlay" class="btn primary big">
+          <svg viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12.4-7.5a1 1 0 0 0 0-1.8L8.5 3.6A1 1 0 0 0 7 4.5z" fill="currentColor"/></svg>
+          <span id="playLabel">Level 1</span>
+        </button>
+        <button id="btnDaily" class="btn daily hidden" aria-label="Daily challenge">
+          <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M12 12.300l1.100 2.200 2.400.300-1.700 1.700.400 2.400L12 17.800l-2.200 1.100.400-2.400-1.700-1.700 2.400-.3z" fill="currentColor"/></svg>
+          <b id="dailyBadge"></b>
+        </button>
+      </div>
       <div class="row">
         <button id="btnLevels" class="btn"><svg viewBox="0 0 24 24"><g fill="currentColor"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></g></svg><span data-i18n="levels">Levels</span></button>
         <button id="btnShop" class="btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500" fill="none" stroke="currentColor" stroke-width="2.400"/><path d="M12 3.500v17M4 9.500c5 2.600 11 2.600 16 0M4 14.500c5-2.600 11-2.600 16 0" fill="none" stroke="currentColor" stroke-width="1.800"/></svg><span data-i18n="skins">Balls</span></button>
